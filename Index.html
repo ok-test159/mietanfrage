@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mietartikel – Tunnuschränzer Altbüron</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #111111;
+    --mid:     #555555;
+    --light:   #aaaaaa;
+    --border:  #cccccc;
+    --bg:      #ffffff;
+    --focus:   #333333;
+    --radius:  3px;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    background: #fff;
+    color: var(--black);
+    padding-bottom: 80px;
+  }
+
+  /* ── Page wrapper ── */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* ── Page title ── */
+  h1.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+    color: var(--black);
+  }
+
+  /* ── Section heading ── */
+  h2.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: 40px 0 20px;
+    color: var(--black);
+  }
+
+  /* ── Conditions ── */
+  .conditions {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--black);
+    margin-bottom: 28px;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+  }
+  .conditions ul { padding-left: 16px; }
+  .conditions li { margin-bottom: 3px; }
+
+  /* ── Date row ── */
+  .date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* ── Field ── */
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label {
+    font-size: 12px;
+    color: var(--mid);
+    font-weight: 400;
+  }
+  .field label .req { color: var(--black); }
+  .field input,
+  .field textarea,
+  .field select {
+    width: 100%;
+    padding: 7px 9px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--black);
+    background: #fff;
+    outline: none;
+    appearance: none;
+  }
+  .field input:focus,
+  .field textarea:focus { border-color: var(--focus); }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* ── Item row (like the screenshot dropdown rows) ── */
+  .item-row {
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 0;
+    background: #fff;
+  }
+  .item-row:first-of-type { border-top: 1px solid var(--border); }
+
+  .item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 10px 9px 12px;
+    min-height: 40px;
+    gap: 8px;
+  }
+
+  .item-label {
+    font-size: 13px;
+    color: var(--black);
+    flex: 1;
+    line-height: 1.3;
+  }
+  .item-label .item-desc {
+    font-size: 11.5px;
+    color: var(--light);
+    display: block;
+    margin-top: 1px;
+  }
+
+  .item-price-tag {
+    font-size: 13px;
+    color: var(--mid);
+    white-space: nowrap;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── Qty control ── */
+  .qty-wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    flex-shrink: 0;
+    height: 28px;
+  }
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    background: #f5f5f5;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: background .12s;
+  }
+  .qty-btn:hover { background: #e8e8e8; }
+  .qty-input {
+    width: 36px;
+    height: 28px;
+    border: none;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--black);
+    background: #fff;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  /* ── Checkbox toggle (for fixed items) ── */
+  .check-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    flex-shrink: 0;
+  }
+  .check-select {
+    width: 92px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 12.5px;
+    color: var(--black);
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 8px center;
+    appearance: none;
+    padding: 0 22px 0 8px;
+    cursor: pointer;
+  }
+  .check-select:focus { outline: 1px solid var(--focus); }
+
+  /* ── Divider line in item list ── */
+  .items-block { margin-bottom: 4px; }
+
+  /* ── Total bar ── */
+  .total-bar {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    max-width: 100%;
+  }
+  .total-label {
+    font-size: 13px;
+    color: var(--mid);
+  }
+  .total-amount {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  /* ── Contact form grid ── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .form-grid .full { grid-column: 1 / -1; }
+
+  /* ── Submit ── */
+  .submit-wrap { text-align: right; margin-top: 24px; }
+  .submit-btn {
+    padding: 10px 28px;
+    background: var(--black);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .submit-btn:hover { background: #333; }
+  .submit-btn:disabled { background: #bbb; cursor: not-allowed; }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed; top: 20px; right: 20px;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 13px;
+    color: var(--black);
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    z-index: 9999;
+    transform: translateY(-60px);
+    opacity: 0;
+    transition: all .3s ease;
+    border-radius: var(--radius);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.error { border-color: #c00; color: #c00; }
+  .toast.success { border-color: #2a7a2a; color: #2a7a2a; }
+
+  @media (max-width: 520px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .date-row { grid-template-columns: 1fr; }
+    .item-header { flex-wrap: wrap; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <h1 class="page-title">Mietartikel</h1>
+
+  <!-- Datum -->
+  <div class="date-row">
+    <div class="field">
+      <label>Abholdatum <span class="req">*</span></label>
+      <input type="date" id="dateFrom" required>
+    </div>
+    <div class="field">
+      <label>Rückgabedatum <span class="req">*</span></label>
+      <input type="date" id="dateTo" required>
+    </div>
+  </div>
+
+  <!-- Artikel -->
+  <div class="items-block" id="itemList"></div>
+
+</div>
+
+<!-- Sticky total -->
+<div class="total-bar">
+  <span class="total-label">Total Mietpreis</span>
+  <span class="total-amount" id="totalDisplay">CHF 0.–</span>
+</div>
+
+<div class="page" style="padding-top:0">
+
+  <!-- Kontaktdaten -->
+  <h2 class="section-title">Kontaktdaten</h2>
+
+  <div class="form-grid">
+    <div class="field">
+      <label>Vorname <span class="req">*</span></label>
+      <input type="text" id="firstName" required>
+    </div>
+    <div class="field">
+      <label>Nachname <span class="req">*</span></label>
+      <input type="text" id="lastName" required>
+    </div>
+    <div class="field full">
+      <label>Strasse <span class="req">*</span></label>
+      <input type="text" id="street" required>
+    </div>
+    <div class="field full">
+      <label>Ort <span class="req">*</span></label>
+      <input type="text" id="city" required>
+    </div>
+    <div class="field">
+      <label>Telefonnummer <span class="req">*</span></label>
+      <input type="tel" id="phone" required>
+    </div>
+    <div class="field">
+      <label>E-Mail <span class="req">*</span></label>
+      <input type="email" id="email" required>
+    </div>
+    <div class="field full">
+      <label>Bemerkungen</label>
+      <textarea id="remarks"></textarea>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Anfrage senden</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const items = [
+  {
+    id: 'musikanlage',
+    name: 'Musikanlage',
+    desc: 'Martin Audio Blackline · 2× Sub XP118 · 2× Top XP12',
+    priceLabel: 'CHF 250.–',
+    price: 250,
+    type: 'fixed'
+  },
+  {
+    id: 'mischpult',
+    name: 'Mischpult',
+    desc: 'Allen & Heath ZED10',
+    priceLabel: 'CHF 30.–',
+    price: 30,
+    type: 'fixed'
+  },
+  {
+    id: 'mikrofon',
+    name: 'Mikrofon',
+    desc: '1× Empfänger und 2× Mikrofon',
+    priceLabel: 'CHF 20.–',
+    price: 20,
+    type: 'fixed'
+  },
+  {
+    id: 'beleuchtung',
+    name: 'Beleuchtung',
+    desc: '7× Scheinwerfer',
+    priceLabel: 'CHF 40.–',
+    price: 40,
+    type: 'fixed'
+  },
+  {
+    id: 'tischgarnitur',
+    name: 'Tischgarnituren',
+    desc: '6 Stk. Gross und 6 Stk. Klein – à CHF 5.–',
+    priceLabel: 'CHF 5.– / Stk.',
+    price: 5,
+    type: 'qty',
+    max: 12
+  },
+  {
+    id: 'tunnubar',
+    name: 'Tunnubar',
+    desc: '10 Elemente à 1.10m · 8 Eck-Elemente à 45°',
+    priceLabel: 'CHF 8.– / Stk.',
+    price: 8,
+    type: 'qty',
+    max: 18
+  },
+  {
+    id: 'neue_bar',
+    name: 'Neue Bar',
+    desc: '40 Elemente à 1.25m · 8 Eck-Elemente à 90°',
+    priceLabel: 'CHF 12.– / Stk.',
+    price: 12,
+    type: 'qty',
+    max: 48
+  },
+  {
+    id: 'guggenbuhne',
+    name: 'Guggenbühne',
+    desc: 'Bühne für Guggenmusik',
+    priceLabel: 'CHF 200.– / Stk.',
+    price: 200,
+    type: 'qty',
+    max: 2
+  },
+  {
+    id: 'pavillon',
+    name: 'Pavillon',
+    desc: 'Faltzelt ProTent 6×4m (Tunnuschränzer)',
+    priceLabel: 'CHF 100.–',
+    price: 100,
+    type: 'fixed'
+  }
+];
+
+const state = {};
+items.forEach(it => {
+  state[it.id] = it.type === 'qty' ? 0 : false;
+});
+
+function renderItems() {
+  const list = document.getElementById('itemList');
+  list.innerHTML = '';
+  items.forEach(it => {
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.id = 'card-' + it.id;
+
+    let control;
+    if (it.type === 'qty') {
+      control = `<div class="qty-wrap">
+        <button class="qty-btn" onclick="changeQty('${it.id}',-1)">−</button>
+        <input class="qty-input" type="number" min="0" max="${it.max||999}" value="${state[it.id]}"
+          oninput="setQty('${it.id}',this.value)">
+        <button class="qty-btn" onclick="changeQty('${it.id}',1)">+</button>
+      </div>`;
+    } else {
+      control = `<select class="check-select" onchange="setFixed('${it.id}',this.value)">
+        <option value="no" ${!state[it.id] ? 'selected' : ''}>—</option>
+        <option value="yes" ${state[it.id] ? 'selected' : ''}>✓ Ja</option>
+      </select>`;
+    }
+
+    row.innerHTML = `
+      <div class="item-header">
+        <div class="item-label">
+          ${it.name}
+          <span class="item-desc">${it.desc}</span>
+        </div>
+        <span class="item-price-tag">${it.priceLabel}</span>
+        ${control}
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function changeQty(id, delta) {
+  const it = items.find(x => x.id === id);
+  state[id] = Math.max(0, Math.min(it.max || 999, (state[id] || 0) + delta));
+  document.querySelector(`#card-${id} .qty-input`).value = state[id];
+  updateTotal();
+}
+function setQty(id, val) {
+  const it = items.find(x => x.id === id);
+  state[id] = Math.max(0, Math.min(it.max || 999, parseInt(val) || 0));
+  updateTotal();
+}
+function setFixed(id, val) {
+  state[id] = val === 'yes';
+  updateTotal();
+}
+
+function updateTotal() {
+  let total = 0;
+  items.forEach(it => {
+    if (it.type === 'qty') total += (state[it.id] || 0) * it.price;
+    else if (state[it.id]) total += it.price;
+  });
+  document.getElementById('totalDisplay').textContent = 'CHF ' + total.toLocaleString('de-CH') + '.–';
+  return total;
+}
+
+async function handleSubmit() {
+  const dateFrom  = document.getElementById('dateFrom').value;
+  const dateTo    = document.getElementById('dateTo').value;
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const street    = document.getElementById('street').value.trim();
+  const city      = document.getElementById('city').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const remarks   = document.getElementById('remarks').value.trim();
+
+  if (!dateFrom || !dateTo || !firstName || !lastName || !street || !city || !phone || !email) {
+    showToast('Bitte alle Pflichtfelder ausfüllen.', 'error'); return;
+  }
+  if (!email.includes('@')) {
+    showToast('Bitte eine gültige E-Mail-Adresse eingeben.', 'error'); return;
+  }
+  const total = updateTotal();
+  if (total === 0) {
+    showToast('Bitte mindestens einen Artikel auswählen.', 'error'); return;
+  }
+
+  const lines = [];
+  items.forEach(it => {
+    if (it.type === 'qty' && state[it.id] > 0) {
+      lines.push(`• ${it.name}: ${state[it.id]} Stk. x CHF ${it.price}.– = CHF ${state[it.id]*it.price}.–`);
+    } else if (it.type === 'fixed' && state[it.id]) {
+      lines.push(`• ${it.name}: CHF ${it.price}.–`);
+    }
+  });
+
+  const body = `MIETANFRAGE – Tunnuschränzer Altbüron\n======================================\n\nMIETZEITRAUM\nAbholdatum:  ${dateFrom}\nRueckgabe:   ${dateTo}\n\nGEWAEHLTE ARTIKEL\n${lines.join('\n')}\n\nTOTAL: CHF ${total}.–\n\nKONTAKTDATEN\nName:      ${firstName} ${lastName}\nAdresse:   ${street}, ${city}\nTelefon:   ${phone}\nE-Mail:    ${email}${remarks ? '\n\nBEMERKUNGEN\n'+remarks : ''}\n\n======================================\nGesendet ueber das Online-Formular.`;
+
+  const subject = encodeURIComponent(`Mietanfrage: ${firstName} ${lastName} – ${dateFrom}`);
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Öffne Mail…';
+  window.location.href = `mailto:ok-praesident.tunnuschraenzer@hotmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = 'Anfrage senden';
+    showToast('Mail-Programm geöffnet – bitte E-Mail absenden.', 'success');
+  }, 1800);
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  setTimeout(() => t.classList.add('show'), 10);
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+renderItems();
+updateTotal();
+</script>
+</body>
+</html>
