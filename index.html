@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   :root {
     --black:   #111111;
     --mid:     #555555;
@@ -17,7 +17,7 @@
     --focus:   #333333;
     --radius:  3px;
   }
-
+ 
   body {
     font-family: 'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -26,24 +26,24 @@
     color: var(--black);
     padding-bottom: 80px;
   }
-
+ 
   /* ── Page wrapper ── */
   .page {
-    max-width: 680px;
+    max-width: 940px;
     margin: 0 auto;
     padding: 40px 24px;
   }
-
+ 
   /* ── Page title ── */
   h1.page-title {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 42px;
+    font-weight: 700;
     text-align: center;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     margin-bottom: 32px;
     color: var(--black);
   }
-
+ 
   /* ── Section heading ── */
   h2.section-title {
     font-size: 20px;
@@ -52,7 +52,7 @@
     margin: 40px 0 20px;
     color: var(--black);
   }
-
+ 
   /* ── Conditions ── */
   .conditions {
     font-size: 13px;
@@ -64,7 +64,7 @@
   }
   .conditions ul { padding-left: 16px; }
   .conditions li { margin-bottom: 3px; }
-
+ 
   /* ── Date row ── */
   .date-row {
     display: grid;
@@ -72,7 +72,7 @@
     gap: 12px;
     margin-bottom: 24px;
   }
-
+ 
   /* ── Field ── */
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field label {
@@ -98,7 +98,7 @@
   .field input:focus,
   .field textarea:focus { border-color: var(--focus); }
   .field textarea { resize: vertical; min-height: 80px; }
-
+ 
   /* ── Item row (like the screenshot dropdown rows) ── */
   .item-row {
     border: 1px solid var(--border);
@@ -107,7 +107,7 @@
     background: #fff;
   }
   .item-row:first-of-type { border-top: 1px solid var(--border); }
-
+ 
   .item-header {
     display: flex;
     align-items: center;
@@ -116,7 +116,7 @@
     min-height: 40px;
     gap: 8px;
   }
-
+ 
   .item-label {
     font-size: 13px;
     color: var(--black);
@@ -129,7 +129,7 @@
     display: block;
     margin-top: 1px;
   }
-
+ 
   .item-price-tag {
     font-size: 13px;
     color: var(--mid);
@@ -137,7 +137,7 @@
     margin-right: 8px;
     flex-shrink: 0;
   }
-
+ 
   /* ── Qty control ── */
   .qty-wrap {
     display: flex;
@@ -180,7 +180,7 @@
   }
   .qty-input::-webkit-outer-spin-button,
   .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-
+ 
   /* ── Checkbox toggle (for fixed items) ── */
   .check-wrap {
     display: flex;
@@ -203,10 +203,10 @@
     cursor: pointer;
   }
   .check-select:focus { outline: 1px solid var(--focus); }
-
+ 
   /* ── Divider line in item list ── */
   .items-block { margin-bottom: 4px; }
-
+ 
   /* ── Total bar ── */
   .total-bar {
     position: sticky;
@@ -229,7 +229,7 @@
     font-weight: 600;
     color: var(--black);
   }
-
+ 
   /* ── Contact form grid ── */
   .form-grid {
     display: grid;
@@ -237,7 +237,7 @@
     gap: 12px;
   }
   .form-grid .full { grid-column: 1 / -1; }
-
+ 
   /* ── Submit ── */
   .submit-wrap { text-align: right; margin-top: 24px; }
   .submit-btn {
@@ -256,7 +256,7 @@
   }
   .submit-btn:hover { background: #333; }
   .submit-btn:disabled { background: #bbb; cursor: not-allowed; }
-
+ 
   /* ── Toast ── */
   .toast {
     position: fixed; top: 20px; right: 20px;
@@ -275,7 +275,7 @@
   .toast.show { transform: translateY(0); opacity: 1; }
   .toast.error { border-color: #c00; color: #c00; }
   .toast.success { border-color: #2a7a2a; color: #2a7a2a; }
-
+ 
   @media (max-width: 520px) {
     .form-grid { grid-template-columns: 1fr; }
     .form-grid .full { grid-column: 1; }
@@ -285,11 +285,11 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="page">
-
+ 
   <h1 class="page-title">Mietartikel</h1>
-
+ 
   <!-- Datum -->
   <div class="date-row">
     <div class="field">
@@ -301,23 +301,23 @@
       <input type="date" id="dateTo" required>
     </div>
   </div>
-
+ 
   <!-- Artikel -->
   <div class="items-block" id="itemList"></div>
-
+ 
 </div>
-
+ 
 <!-- Sticky total -->
 <div class="total-bar">
   <span class="total-label">Total Mietpreis</span>
   <span class="total-amount" id="totalDisplay">CHF 0.–</span>
 </div>
-
+ 
 <div class="page" style="padding-top:0">
-
+ 
   <!-- Kontaktdaten -->
   <h2 class="section-title">Kontaktdaten</h2>
-
+ 
   <div class="form-grid">
     <div class="field">
       <label>Vorname <span class="req">*</span></label>
@@ -348,15 +348,15 @@
       <textarea id="remarks"></textarea>
     </div>
   </div>
-
+ 
   <div class="submit-wrap">
     <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">Anfrage senden</button>
   </div>
-
+ 
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 const items = [
   {
@@ -392,31 +392,58 @@ const items = [
     type: 'fixed'
   },
   {
-    id: 'tischgarnitur',
-    name: 'Tischgarnituren',
-    desc: '6 Stk. Gross und 6 Stk. Klein – à CHF 5.–',
+    id: 'tischgarnitur_gross',
+    name: 'Tischgarnituren gross',
+    desc: 'à CHF 5.– pro Stk.',
     priceLabel: 'CHF 5.– / Stk.',
     price: 5,
     type: 'qty',
-    max: 12
+    max: 6
   },
   {
-    id: 'tunnubar',
-    name: 'Tunnubar',
-    desc: '10 Elemente à 1.10m · 8 Eck-Elemente à 45°',
+    id: 'tischgarnitur_klein',
+    name: 'Tischgarnituren klein',
+    desc: 'à CHF 5.– pro Stk.',
+    priceLabel: 'CHF 5.– / Stk.',
+    price: 5,
+    type: 'qty',
+    max: 6
+  },
+  {
+    id: 'tunnubar_element',
+    name: 'Tunnubar Element',
+    desc: 'à 1.10m – CHF 8.– pro Stk. (max. 10 Stk.)',
     priceLabel: 'CHF 8.– / Stk.',
     price: 8,
     type: 'qty',
-    max: 18
+    max: 10
   },
   {
-    id: 'neue_bar',
-    name: 'Neue Bar',
-    desc: '40 Elemente à 1.25m · 8 Eck-Elemente à 90°',
+    id: 'tunnubar_eck',
+    name: 'Tunnubar Eckelement 45°',
+    desc: 'CHF 8.– pro Stk. (max. 8 Stk.)',
+    priceLabel: 'CHF 8.– / Stk.',
+    price: 8,
+    type: 'qty',
+    max: 8
+  },
+  {
+    id: 'neue_bar_element',
+    name: 'Neue Bar Element',
+    desc: 'à 1.25m – CHF 12.– pro Stk. (max. 40 Stk.)',
     priceLabel: 'CHF 12.– / Stk.',
     price: 12,
     type: 'qty',
-    max: 48
+    max: 40
+  },
+  {
+    id: 'neue_bar_eck',
+    name: 'Neue Bar Eckelement 90°',
+    desc: 'CHF 12.– pro Stk. (max. 8 Stk.)',
+    priceLabel: 'CHF 12.– / Stk.',
+    price: 12,
+    type: 'qty',
+    max: 8
   },
   {
     id: 'guggenbuhne',
@@ -436,12 +463,12 @@ const items = [
     type: 'fixed'
   }
 ];
-
+ 
 const state = {};
 items.forEach(it => {
   state[it.id] = it.type === 'qty' ? 0 : false;
 });
-
+ 
 function renderItems() {
   const list = document.getElementById('itemList');
   list.innerHTML = '';
@@ -449,7 +476,7 @@ function renderItems() {
     const row = document.createElement('div');
     row.className = 'item-row';
     row.id = 'card-' + it.id;
-
+ 
     let control;
     if (it.type === 'qty') {
       control = `<div class="qty-wrap">
@@ -464,7 +491,7 @@ function renderItems() {
         <option value="yes" ${state[it.id] ? 'selected' : ''}>✓ Ja</option>
       </select>`;
     }
-
+ 
     row.innerHTML = `
       <div class="item-header">
         <div class="item-label">
@@ -477,7 +504,7 @@ function renderItems() {
     list.appendChild(row);
   });
 }
-
+ 
 function changeQty(id, delta) {
   const it = items.find(x => x.id === id);
   state[id] = Math.max(0, Math.min(it.max || 999, (state[id] || 0) + delta));
@@ -493,7 +520,7 @@ function setFixed(id, val) {
   state[id] = val === 'yes';
   updateTotal();
 }
-
+ 
 function updateTotal() {
   let total = 0;
   items.forEach(it => {
@@ -503,7 +530,7 @@ function updateTotal() {
   document.getElementById('totalDisplay').textContent = 'CHF ' + total.toLocaleString('de-CH') + '.–';
   return total;
 }
-
+ 
 async function handleSubmit() {
   const dateFrom  = document.getElementById('dateFrom').value;
   const dateTo    = document.getElementById('dateTo').value;
@@ -514,7 +541,7 @@ async function handleSubmit() {
   const phone     = document.getElementById('phone').value.trim();
   const email     = document.getElementById('email').value.trim();
   const remarks   = document.getElementById('remarks').value.trim();
-
+ 
   if (!dateFrom || !dateTo || !firstName || !lastName || !street || !city || !phone || !email) {
     showToast('Bitte alle Pflichtfelder ausfüllen.', 'error'); return;
   }
@@ -525,7 +552,7 @@ async function handleSubmit() {
   if (total === 0) {
     showToast('Bitte mindestens einen Artikel auswählen.', 'error'); return;
   }
-
+ 
   const lines = [];
   items.forEach(it => {
     if (it.type === 'qty' && state[it.id] > 0) {
@@ -534,9 +561,9 @@ async function handleSubmit() {
       lines.push(`• ${it.name}: CHF ${it.price}.–`);
     }
   });
-
+ 
   const body = `MIETANFRAGE – Tunnuschränzer Altbüron\n======================================\n\nMIETZEITRAUM\nAbholdatum:  ${dateFrom}\nRueckgabe:   ${dateTo}\n\nGEWAEHLTE ARTIKEL\n${lines.join('\n')}\n\nTOTAL: CHF ${total}.–\n\nKONTAKTDATEN\nName:      ${firstName} ${lastName}\nAdresse:   ${street}, ${city}\nTelefon:   ${phone}\nE-Mail:    ${email}${remarks ? '\n\nBEMERKUNGEN\n'+remarks : ''}\n\n======================================\nGesendet ueber das Online-Formular.`;
-
+ 
   const subject = encodeURIComponent(`Mietanfrage: ${firstName} ${lastName} – ${dateFrom}`);
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
@@ -548,7 +575,7 @@ async function handleSubmit() {
     showToast('Mail-Programm geöffnet – bitte E-Mail absenden.', 'success');
   }, 1800);
 }
-
+ 
 function showToast(msg, type) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -556,9 +583,10 @@ function showToast(msg, type) {
   setTimeout(() => t.classList.add('show'), 10);
   setTimeout(() => t.classList.remove('show'), 4500);
 }
-
+ 
 renderItems();
 updateTotal();
 </script>
 </body>
 </html>
+ 
