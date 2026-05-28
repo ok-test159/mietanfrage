@@ -568,7 +568,7 @@ async function handleSubmit() {
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Öffne Mail…';
-  window.location.href = `mailto:ok-praesident.tunnuschraenzer@hotmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  window.location.href = `mailto:praesident.tunnuschraenzer@hotmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
   setTimeout(() => {
     btn.disabled = false;
     btn.textContent = 'Anfrage senden';
